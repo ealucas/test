@@ -11,15 +11,11 @@ FilaHosts::FilaHosts() : Fila()
     tras = frente;
 }
 
-FilaHosts::~FilaHosts(){
-    Limpa();
-    delete frente;
-}
 
 void FilaHosts::Enfileira(ListaUrls item){ // inserts a new item
     FilaCelula *nova;
     nova = new FilaCelula();
-    nova->item = item;
+    nova->item.CopyList(item);
     tras->prox = nova;  //last    
     tras = nova;
     tamanho++;
@@ -32,9 +28,10 @@ ListaUrls FilaHosts::Desenfileira(){  // removes an item
     if (tamanho == 0){
         throw "Fila está vazia!";
     }
-    aux = frente->prox->item;
+    aux.CopyList(frente->prox->item);
     p = frente;
     frente = frente->prox;
+    p->item.Limpa();
     delete p;
     tamanho--;
     return aux;
@@ -51,9 +48,13 @@ void FilaHosts::Limpa(){
     tamanho = 0;
     tras = frente;
 }
-
 FilaCelula::FilaCelula()
 {
-    // item = new ListaUrls();
+    item.SetTamanho(0); 
     prox = nullptr;
+}
+
+FilaHosts::~FilaHosts(){
+    Limpa();
+    delete frente;
 }

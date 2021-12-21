@@ -108,3 +108,15 @@ void ListaUrls::InsereInicio(Url url) // inserts at the beggining
         ultimo = nova;
     }
 }
+
+void ListaUrls::SetTamanho(int num){
+     tamanho = num;
+}
+
+ListaUrls *  ListaUrls::CopyList(ListaUrls lista){
+    ListaUrls *aux;
+    aux->primeiro = lista.primeiro;
+    aux->ultimo = lista.ultimo;
+    aux->SetTamanho(lista.getTamanho());
+    return aux;
+}
